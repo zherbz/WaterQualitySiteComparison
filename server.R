@@ -73,18 +73,18 @@ shinyServer(function(input, output) {
                           time <= input$dates[2])
     mod1 <- rbind("Site_Location" = sitename_1300[1],
                       "Para"= input$param3,
-                     "5%" = quantile(plotdata1[,input$param3],na.rm=TRUE,(0.05)),
-                     "95%"= quantile(plotdata1[,input$param3],na.rm=TRUE,(0.95)),
-                     "Mean" = mean(plotdata1[,input$param3],na.rm=TRUE), 
-                     "Median" = median(plotdata1[,input$param3],na.rm=TRUE),
-                     "Std Dev" = sd(plotdata1[,input$param3],na.rm = TRUE))
+                     "5%" = round(quantile(plotdata1[,input$param3],na.rm=TRUE,(0.05)),2),
+                     "95%"= round(quantile(plotdata1[,input$param3],na.rm=TRUE,(0.95)),2),
+                     "Mean" = round(mean(plotdata1[,input$param3],na.rm=TRUE),2), 
+                     "Median" = round(median(plotdata1[,input$param3],na.rm=TRUE),2),
+                     "Std Dev" = round(sd(plotdata1[,input$param3],na.rm = TRUE),2))
     mod2 <- rbind("Site_Location" = sitename_900[1],
                   "Para"= input$param3,
-                  "5%" = quantile(plotdata2[,input$param3],(0.05),na.rm=TRUE),
-                  "95%"= quantile(plotdata2[,input$param3],(0.95),na.rm=TRUE),
-                  "Mean" = mean(plotdata2[,input$param3],na.rm=TRUE), 
-                  "Median" = median(plotdata2[,input$param3],na.rm=TRUE),
-                  "Std Dev" = sd(plotdata2[,input$param3],na.rm = TRUE))
+                  "5%" = round(quantile(plotdata2[,input$param3],(0.05),na.rm=TRUE),2),
+                  "95%"= round(quantile(plotdata2[,input$param3],(0.95),na.rm=TRUE),2),
+                  "Mean" = round(mean(plotdata2[,input$param3],na.rm=TRUE),2), 
+                  "Median" = round(median(plotdata2[,input$param3],na.rm=TRUE),2),
+                  "Std Dev" = round(sd(plotdata2[,input$param3],na.rm = TRUE),2))
     modtable <- data.frame(col1 = c("Site Location","Parameter","5% Quartile","95% Quartile","Mean","Median","Std Dev"),
                            col2 = mod1, col3= mod2)
     `colnames<-`(modtable,NULL)

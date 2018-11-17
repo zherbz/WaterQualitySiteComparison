@@ -23,8 +23,6 @@ sitename_1300 <- (c(siteinfo_1300[1,1],as.numeric (siteinfo_1300[1,5]),as.numeri
 sitename_900 <- (c(siteinfo_900[1,1],as.numeric (siteinfo_900[1,5]), as.numeric (siteinfo_900 [1,6])))
 
 #get full site info for all sites using the GetSiteInfo method
-
-
 ThirteenE_DO <- GetValues(server,siteCode="iutah:RB_1300E_A",variableCode="iutah:ODO", startDate = "2017-04-01",
                             endDate = "2017-10-31")
 colnames(ThirteenE_DO)[2] = "Dissolved_Oxygen_mg/L"
@@ -41,26 +39,16 @@ NineSouth_temp <- GetValues(server,siteCode="iutah:RB_900W_BA",variableCode="iut
                           endDate = "2017-10-31")
 colnames(NineSouth_temp)[2] = "Temperature_C"
 
-NineSouth_turb <- GetValues(server,siteCode="iutah:RB_900W_BA",variableCode="iutah:TurbAvg", startDate = "2017-04-01",
-                            endDate = "2017-10-31")
-colnames(NineSouth_turb)[2] = "Turbidity_Data_NTU"
-
-ThirteenE_turb <- GetValues(server,siteCode="iutah:RB_1300E_A",variableCode="iutah:TurbAvg", startDate = "2017-04-01",
-                            endDate = "2017-10-31")
-colnames(ThirteenE_turb)[2] = "Turbidity_Data_NTU"
-
 #Remove Duplicates in DO data
 NineSouth_DO<- NineSouth_DO[!duplicated(NineSouth_DO$time), ]
 ThirteenE_DO<- ThirteenE_DO[!duplicated(ThirteenE_DO$time), ]
 #Merge Data on Data
 
-NineSouth_df1<- merge(NineSouth_temp,NineSouth_DO, by = "time")
-NineSouth_df <- merge(NineSouth_df1,NineSouth_turb, by = "time")
+NineSouth_df<- merge(NineSouth_temp,NineSouth_DO, by = "time")
 NineSouth_df <- NineSouth_df[-c(3:9,11:17,19:25)]
 NineSouth_df$SiteName <- sitename_900 [1]
 
-ThirteenE_df1<- merge(ThirteenE_DO,ThirteenE_temp, by = "time")
-ThirteenE_df <- merge(ThirteenE_df1,ThirteenE_turb, by = "time")
+ThirteenE_df<- merge(ThirteenE_DO,ThirteenE_temp, by = "time")
 ThirteenE_df <- ThirteenE_df[-c(3:9,11:17,19:25)]
 ThirteenE_df$SiteName <- sitename_1300 [1]
 
@@ -76,6 +64,5 @@ sitename_df$Long <- as.numeric(levels(sitename_df$Long))[sitename_df$Long]
 row.names(sitename_df) <- NULL
 
 #######Added: Remove no longer needed variables from global environment
-rm(NineSouth_df,NineSouth_df1,NineSouth_DO,NineSouth_temp,NineSouth_turb,ThirteenE_df,
-   ThirteenE_df1,ThirteenE_DO,ThirteenE_temp,ThirteenE_turb)
+rm(NineSouth_df,NineSouth_df,NineSouth_DO,NineSouth_temp,NineSouth_turb,ThirteenE_df,ThirteenE_DO,ThirteenE_temp,ThirteenE_turb)
 
