@@ -16,7 +16,7 @@ shinyUI(fluidPage(
     sidebarPanel(
       selectInput(inputId='site', 
                   label ='Site', 
-                  choices = list(sitename_1300[1],sitename_900[1]), 
+                  choices = list(sitename_900[1], sitename_1300[1]), 
                   selected = NULL, 
                   multiple = FALSE,
                   selectize = TRUE,
@@ -51,7 +51,8 @@ shinyUI(fluidPage(
       textOutput("modelresults"),
       leafletOutput("mymap"),
       textOutput("selected_var2"),
-      plotOutput("plot2")
+      plotOutput("plot2"),
+      plotOutput("plot3")
       
     )
   )

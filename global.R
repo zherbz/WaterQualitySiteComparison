@@ -55,7 +55,12 @@ ThirteenE_df$SiteName <- sitename_1300 [1]
 df <- rbind (NineSouth_df, ThirteenE_df, deparse.level = 2)
 ######Added: Convert data class from POSIX to as date POSIX
 df$time <- as.Date.POSIXct(df$time) 
-
+##Remove any outliers of DO that are zero
+for (i in nrow(df)){
+  if (df$`Dissolved_Oxygen_mg/L` == 0){
+    df$`Dissolved_Oxygen_mg/L` <- NA
+  }
+}
 #Merge Site Names
 sitename_df <- data.frame(rbind(sitename_900,sitename_1300))
 colnames(sitename_df) <- c("SiteName", "Lat", "Long")
