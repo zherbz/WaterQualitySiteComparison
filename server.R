@@ -34,13 +34,13 @@ shinyServer(function(input, output) {
     plotdata2 <- subset(df,SiteName == sitename_900[1] & time >= input$dates[1] &
                           time <= input$dates[2])
     
-    ggplot() + geom_smooth(data = plotdata1, aes(x = plotdata1$time, y=plotdata1[,input$param3],color='blue')) +
+    ggplot() + geom_smooth(data = plotdata1, aes(x = plotdata1$time, y=plotdata1[,input$param3],color='red')) +
       
-      geom_smooth(data = plotdata2, aes(x=plotdata2$time, y=plotdata2[,input$param3],color='red')) +
+      geom_smooth(data = plotdata2, aes(x=plotdata2$time, y=plotdata2[,input$param3],color='blue')) +
       
       labs(title = "Site Comparison Plot", x = "Time", y = input$param3, color = "Legend Title\n") +
       
-      scale_color_manual(labels = c(sitename_1300[1], sitename_900[1]), values = c("blue", "red")) +
+      scale_color_manual(labels = c(sitename_1300[1], sitename_900[1]), values = c("red", "blue")) +
       
       theme_bw() +
       
@@ -92,5 +92,26 @@ shinyServer(function(input, output) {
   })
   
   output$table <- renderTable(plotmod2())
+  
+  
+  output$plot3 <- renderPlot({
+    
+    plotdata1 <- subset(df,SiteName == sitename_1300[1] & time >= input$dates[1] &
+                          time <= input$dates[2])
+    plotdata2 <- subset(df,SiteName == sitename_900[1] & time >= input$dates[1] &
+                          time <= input$dates[2])
+    ggplot((data = plotdata), aes(x = plotdata[,input$param1], y = plotdata[,input$param2])) +
+      geom_point() + xlab(input$param1) + ylab(input$param2) + geom_smooth()
+    
+  })
+  
+  output$plot3 <- renderPlot({
+    
+    plotdata3 <- subset(df, time >= input$dates[1] & time <= input$dates[2])
+    
+    ggplot((data = plotdata3), aes(x = plotdata3$SiteName, y = plotdata3[,input$param3], fill = plotdata3$SiteName)) +
+      geom_boxplot(outlier.colour="black", outlier.shape = 8, outlier.size = 4) + xlab("Sites") + ylab(input$param3)
+    
+  })
   
 })
