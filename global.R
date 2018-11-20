@@ -57,8 +57,8 @@ df <- rbind (NineSouth_df, ThirteenE_df, deparse.level = 2)
 df$time <- as.Date.POSIXct(df$time) 
 ##Remove any outliers of DO that are zero
 for (i in nrow(df)){
-  if (df$`Dissolved_Oxygen_mg/L` == 0){
-    df$`Dissolved_Oxygen_mg/L` <- NA
+  if (df$`Dissolved_Oxygen_mg/L`[i] == 0){
+    df$`Dissolved_Oxygen_mg/L`[i] <- NA
   }
 }
 #Merge Site Names
